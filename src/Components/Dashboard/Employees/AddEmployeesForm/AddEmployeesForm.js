@@ -1,10 +1,10 @@
 "use client";
 import DataPost from "@/config/DataPost";
-import { coreContext } from "@/provider/AuthContext";
 import axios from "axios";
 import { useContext, useState } from "react";
 import Swal from 'sweetalert2';
-const AddEmployees = () => {
+
+const AddEmployeesForm = () => {
     const [loading, setloading] = useState(false);
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=5201d474546c521dc75dd9c96eea7a84`;
     const HandelSubmit = async (e) => {
@@ -73,7 +73,6 @@ const AddEmployees = () => {
     };
 
     return (
-        <div>
             <div className='px-6 py-10'>
                 <h1 className="pb-7 font-semibold text-lg">Add Employee</h1>
                 <form
@@ -234,8 +233,8 @@ const AddEmployees = () => {
                     </button>
                 </form>
             </div>
-        </div>
     );
-};
 
-export default AddEmployees
+}
+
+export default AddEmployeesForm

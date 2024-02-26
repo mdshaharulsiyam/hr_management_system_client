@@ -1,133 +1,122 @@
-"use client";
+"use client"
+
 import { coreContext } from "@/provider/AuthContext";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import Swal from "sweetalert2";
-const useLoginPage = () => {
+import DataGet from "@/config/DataGet";
+
+const EmployeeLogin = () => {
+
+  const { logIn, createUserEmail } = useContext(coreContext);
   const router = useRouter();
-  const { logIn, googleLogIn } = useContext(coreContext);
-  const [loading, setloading] = useState(false);
-  const handleForm = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    try {
-      logIn(email, password)
-        .then((userCredential) => {
-          setloading(false);
-          const user = userCredential.user;
-          Swal.fire({
-            position: "top-end",
+  const [show, setShow] = useState(false)
+    const handleEmployeeLogin = async(e) =>{
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        // console.log(email)
+        logIn(email, password)
+            .then((data) => {
+            const user = data.user;
+            Swal.fire({
+            position: "center",
             icon: "success",
             title: `logged in user succesfuly`,
             showConfirmButton: false,
             timer: 1500,
           });
-          router.push("/");
+          router.push("/dashboard");
         })
-        .catch((error) => {
-          setloading(false);
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: `${error.message}`,
-            footer: "unable to log in user",
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const loginwithgoogle = () => {
-    googleLogIn()
-      .then((result) => {
-        const user = result.user;
-        const userData = {
-          profileImage: user.photoURL,
-          username: user.displayName,
-          useremail: user.email,
-          role: "user",
-          emailVerified: user.emailVerified,
-        };
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "logged in successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        //   setloading(false)
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Swal.fire("opps!!", `${errorMessage}`, "error");
-      });
-    // setloading(false)
-  };
-  return (
-    <>
-      <div className=" bg-[url('https://i.ibb.co/N1VHksh/Black-And-Red-Modern-Business-Human-Resource-Management-Presentation.png')] md:py-36 py-48">
-        <p className="md:text-5xl text-3xl font-bold text-center block uppercase text-white">
-          {" "}
-          sign in
-        </p>
-      </div>
-      <div className="p-5 border  py-16 w-3/4 lg:w-1/2 mx-auto my-4  rounded-lg ">
-        <form className="space-y-4" onSubmit={handleForm}>
-          <div className="form-control w-full">
-            <label className="text-md font-semibold">Email</label>
-            <input
-              type="Email"
-              placeholder="Enter your nEmail"
-              className="input input-bordered"
-              name="email"
-            />
-          </div>
-          <div className="form-control w-full">
-            <label className="text-md font-semibold">password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="input input-bordered"
-              name="password"
-            />
-          </div>
+        .catch(async(error) => {
+  ;
+         const res = await DataGet(`users/${email}`)
+            const user = res?.data;
+            const name = user?.FullName; 
+            const photo = user?.photo;
+            // console.log(password,name,photo)
+            if(user){
+              createUserEmail(email, password)
+              .then(data => {
+                const user = data.user;
+              updateProfile(data.user, {
+                displayName: name,
+                photoURL: photo,
+              })
+              .then(res => {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Success",
+                  showConfirmationButton: false,
+                  timer: 1500,
+                })
+                router.push("/dashboard");
+              })
+              .catch(err => console.log("profile update error", err))
+              })
+              .catch(err =>{
+                // creating user err
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: "Operation Failed",
+                  showConfirmationButton: false,
+                  timer: 1500,
+                });
+              })
+            }
+            else{
+              router.push("/");
+            }
+          })
+  }
 
-          <div className="flex  justify-center">
-            <button
-              type="submit"
-              className="font-bold btn  bg-emerald-400 w-full"
-            >
-              LOGIN
-            </button>
-          </div>
+    return (
+        <div className="bg-[url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?q=80&w=1752&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover min-h-screen flex flex-col justify-center items-center">
+          <form className="space-y-4 my-10 w-4/5 md:w-1/2 p-10 glass rounded-lg" onSubmit={handleEmployeeLogin}>
+            <h1 className="text-4xl font-bold text-white text-center">Employee Login</h1>
+            <div className="form-control w-full">
+              <label className="text-md font-semibold">Email</label>
+              <input
+                type="Email"
+                placeholder="Enter your email"
+                className="input input-bordered"
+                name="email"
+                required
+              />
+            </div>
+
+            <div className="form-control w-full relative">
+              <label className="text-md font-semibold">Password</label>
+              <input
+                type={show ? "text" : "password"}
+                placeholder="Enter your password"
+                className="input input-bordered"
+                required
+                name="password"
+              />
+              <span
+                className="absolute top-10 right-3"
+                onClick={() => setShow(!show)}
+              >
+                {show ? <FaEyeSlash className="cursor-pointer"></FaEyeSlash> : <FaEye className="cursor-pointer"></FaEye>}
+              </span>
+            </div>
+
+            <div className="flex  justify-center">
+              <button
+                type="submit"
+                className="font-bold btn bg-emerald-400 hover:bg-emerald-500 hover:text-white w-full"
+              >
+                LOGIN
+              </button>
+            </div>
         </form>
-        <p className="text-center py-2">or</p>
-        <div className="mt-5">
-          <button
-            onClick={loginwithgoogle}
-            className="w-full btn  text-black bg-emerald-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2 text-center"
-          >
-            <FcGoogle></FcGoogle> GOOGLE
-          </button>
         </div>
-        <p className="text-sm pt-2 font-light text-gray-500 dark:text-gray-400">
-          don t have an account?{" "}
-          <Link
-            href="/register"
-            className="font-medium text-primary-600 hover:underline "
-          >
-            <span className="text-blue-700">sign up here</span>
-          </Link>
-        </p>
-      </div>
-    </>
-  );
+    );
 };
 
-export default useLoginPage;
+export default EmployeeLogin;
