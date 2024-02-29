@@ -19,7 +19,7 @@ const usePage = async () => {
     const router = useRouter()
     const { user } = useContext(coreContext)
     const leaveData = await DataGet(`leave?user=${user?.email}`)
-    console.log(leaveData)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -48,7 +48,7 @@ const usePage = async () => {
                 router.refresh()
             }
         } catch (error) {
-            console.log(error)
+
         }
 
 

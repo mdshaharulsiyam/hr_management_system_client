@@ -49,7 +49,6 @@ const AddEmployees = () => {
         }
         if (res.data.success) {
             const responce = await DataPost('users', info)
-            console.log(responce)
             if (responce?.success) {
                 e.target.reset()
                 setloading(false);

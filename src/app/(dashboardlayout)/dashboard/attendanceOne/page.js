@@ -38,7 +38,7 @@ const AttendanceOne = () => {
     const handleClockIn = async() =>{
         axiosSecure.post("/attendance", data)
         .then(res =>{
-            console.log(res.data.data)
+
             if(res.data.data){
                 Swal.fire({
                     position: "center",
@@ -51,12 +51,12 @@ const AttendanceOne = () => {
             setClockOutId(res.data.data._id);
         })
         .catch(err =>{
-            console.log(err);
+
         })
     }
 
     const handleClockOut = async() =>{
-        console.log(clockOutId)
+
         axiosSecure.patch(`/attendance/${clockOutId}`)
         .then(res =>{
             if(res.data){
@@ -68,9 +68,9 @@ const AttendanceOne = () => {
                     timer: 1500,
                   });
             }
-            console.log(res.data);
+
         })
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
 
 

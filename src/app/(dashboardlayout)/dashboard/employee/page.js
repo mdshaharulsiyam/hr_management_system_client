@@ -1,6 +1,7 @@
 import AddEmployeesForm from '@/Components/Dashboard/Employees/AddEmployeesForm/AddEmployeesForm';
 import ModalButton from '@/Components/Dashboard/Employees/ModalButton/ModalButton';
 import DataGet from '@/config/DataGet';
+import Image from 'next/image';
 const usePage = async () => {
     try {
         const res = await DataGet('employe');
@@ -23,34 +24,50 @@ const usePage = async () => {
                         </div>
                     </dialog>
                 </div>
-                <table className="table">
+                <table className="table mt-6">
                     {/* head */}
                     <thead>
                         <tr>
-                            <th className='font-bold'>Name</th>
+                            <th className='font-bold'>profile</th>
+                            <th className='font-bold'>FullName</th>
                             <th className='font-bold'>email</th>
                             <th className='font-bold'>gender </th>
-                            <th className='font-bold'>salary </th>
+                            <th className='font-bold'>departemt </th>
+                            <th className='font-bold'>Address </th>
+                            <th className='font-bold'>Salary </th>
+                            <th className='font-bold'>PhoneNumber </th>
                             <th className='font-bold'>leaves </th>
                             <th className='font-bold'>loan </th>
+                            <th className='font-bold'>JoiningDate </th>
+                            <th className='font-bold'>role </th>
+                            <th className='font-bold'>team </th>
                             <th className='font-bold'>action </th>
                         </tr>
                     </thead>
-                    {/* {
+                    {
                         userData.length <= 0 && <p className='text-red-500 font-bold'>no employee data found</p>
-                    } */}
+                    }
                     <tbody>
 
                         {
                             userData.length > 0 && userData.map(item => <tr key={item?._id} className="bg-base-200">
-                                <td>{item?.name}</td>
+                                <td>
+                                    <Image src={item?.photo} height={30} width={30} className='w-10 h-10 rounded-full' />
+                                </td>
+                                <td>{item?.FullName}</td>
                                 <td>{item?.email}</td>
-                                <td>{item?.gender}</td>
-                                <td>{item?.salary}</td>
+                                <td>{item?.Gender}</td>
+                                <td>{item?.Designation}</td>
+                                <td>{item?.Address}</td>
+                                <td>{item?.Salary}</td>
+                                <td>{item?.PhoneNumber}</td>
                                 <td>{item?.leaves}</td>
                                 <td>{item?.loan}</td>
+                                <td>{item?.JoiningDate.split('T')[0]}</td>
+                                <td>{item?.role}</td>
+                                <td>{item?.team}</td>
                                 <td>
-                                text
+                                <button>delete</button>
                                 </td>
 
                             </tr>)

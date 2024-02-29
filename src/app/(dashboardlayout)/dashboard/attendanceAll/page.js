@@ -21,18 +21,18 @@ const AttendancePage = () =>{
     const date = form.date.value;
     const month = form.month.value;
     const name = form.name.value;
-    console.log({date, month, name})
+
     
     // get the data from db
     axiosSecure.get(`/attendance?name=${name}&date=${date && date}&month=${month && month}`)
     .then(res => {
-      console.log(res.data)
+
       setData(res.data)
     })
     .catch(err => console.log(err))
   }
 
-  console.log(data)
+
 
     return (
         <div className="my-10 min-h-screen px-5 space-y-5">

@@ -12,7 +12,7 @@ const usePage = async () => {
     //
     try {
         const response = await axiosSecure.get(`/users/${user?.email}`, { params: { next: { revalidate: 10 } } });
-        console.log(response.data)
+
         if (response?.data?.data?.role === 'admin') {
             const HandelSubmit = async (e) => {
                 e.preventDefault()
@@ -25,7 +25,7 @@ const usePage = async () => {
                 const data = {
                     position, department, responsibilities, requirements, applicationDeadline
                 }
-                console.log(data);
+
                 // const res = await axiosSecure.post('/recruitment', data)
                 // console.log(res.data);
             }

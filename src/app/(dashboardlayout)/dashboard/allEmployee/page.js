@@ -32,7 +32,7 @@ const usePage = async () => {
         if (result.isConfirmed) {
             try {
                 const res = await axiosSecure.delete(`/users/${_id}`);
-                console.log('Employee deleted successfully:', res.data);
+
 
                 Swal.fire(
                     'Deleted!',

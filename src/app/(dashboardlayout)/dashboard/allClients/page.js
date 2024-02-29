@@ -47,7 +47,7 @@ const usePage = () => {
                 });
             }
         } catch (error) {
-            console.log(error)
+
         }
     }
 

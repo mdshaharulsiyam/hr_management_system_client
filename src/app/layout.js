@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import AuthContext from '@/provider/AuthContext'
-
+import NextAuthProvider from '@/provider/NextAuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,9 +15,11 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body className={inter.className}>
         <div className='min-h-screen'>
-        <AuthContext>
-        {children}
-        </AuthContext>
+          <AuthContext>
+            <NextAuthProvider >
+              {children}
+            </NextAuthProvider>
+          </AuthContext>
         </div>
       </body>
     </html>

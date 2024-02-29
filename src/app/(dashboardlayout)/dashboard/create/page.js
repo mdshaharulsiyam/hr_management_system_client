@@ -15,8 +15,8 @@ const CreatePage = () => {
         const duration = form.duration.value;
         const date = form.date;
 
-        console.log(name, duration, description, photo, date);
-  
+
+
         
         const res = await axiosrequest.post(
             image_hosting_api,

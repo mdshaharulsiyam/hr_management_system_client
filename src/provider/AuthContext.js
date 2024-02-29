@@ -46,14 +46,14 @@ const AuthContext = ({ children }) => {
                     photo: currentUser?.photoURL,
                 }
                 setUser(userData);
-                const fetchdata = async () => {
-                    const res = await DataGet(`users/${currentUser?.email}`)
-                    setLoading(false);
-                    if (res?.data) {
-                        setUser(res?.data);
-                    }
-                }
-                fetchdata()
+                // const fetchdata = async () => {
+                //     const res = await DataGet(`users/${currentUser?.email}`)
+                //     setLoading(false);
+                //     if (res?.data) {
+                //         setUser(res?.data);
+                //     }
+                // }
+                // fetchdata()
             }
             else {
                 setUser({});

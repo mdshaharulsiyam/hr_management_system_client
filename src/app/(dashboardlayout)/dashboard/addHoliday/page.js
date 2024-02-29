@@ -12,10 +12,8 @@ const AddHoliday = () => {
     const holiday = form.holiday.value;
     const date = form.date.value;
     const data = { total, holiday, date }
-    console.log(data)
     axioSecure.post('/holidays', data)
       .then((res) => {
-        console.log(res.data)
       })
       router.push('/holiday')
   };
