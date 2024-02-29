@@ -8,7 +8,7 @@ export const authoptions = {
             name: "credentials",
             credentials: {},
             async authorize(credentials, req) {
-                const GetUser = await fetch(`http://localhost:5000/employe/${credentials?.email}?password=${credentials?.password}`, {
+                const GetUser = await fetch(`http://localhost:5000/employe/login/${credentials?.email}?password=${credentials?.password}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
