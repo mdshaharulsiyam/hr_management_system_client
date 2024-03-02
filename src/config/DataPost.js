@@ -4,9 +4,10 @@ const DataPost = async (apiLink, data) => {
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(data),
     });
-    return await res.json()
+    return await res.json();
 }
 
-export default DataPost
+export default DataPost;

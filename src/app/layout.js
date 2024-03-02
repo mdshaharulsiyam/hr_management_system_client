@@ -6,7 +6,7 @@ import NextAuthProvider from '@/provider/NextAuthProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'hr-vortex',
+  title: 'HR-management',
   description: 'hr management system',
 }
 
@@ -15,11 +15,11 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body className={inter.className}>
         <div className='min-h-screen'>
-          <AuthContext>
-            <NextAuthProvider >
+          <NextAuthProvider >
+            <AuthContext>
               {children}
-            </NextAuthProvider>
-          </AuthContext>
+            </AuthContext>
+          </NextAuthProvider>
         </div>
       </body>
     </html>

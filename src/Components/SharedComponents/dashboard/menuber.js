@@ -1,5 +1,5 @@
 'use client'
-
+import { RiLogoutCircleLine } from "react-icons/ri";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
@@ -16,23 +16,22 @@ import { MdOutlinePeopleAlt } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import { FaBriefcase, FaPeopleGroup } from "react-icons/fa6";
 import { LiaNotesMedicalSolid } from "react-icons/lia";
-
 import { FaProjectDiagram } from "react-icons/fa";
 import { AiOutlineTeam } from "react-icons/ai";
-
 import { BsCashCoin } from "react-icons/bs";
 import { GrSubtractCircle } from 'react-icons/gr';
 import { MdCreateNewFolder } from 'react-icons/md';
-
+import {  signOut } from "next-auth/react"
 const Menuber = () => {
   const { user } = useContext(coreContext);
   const [show, setshow] = useState(false);
   const [IsOpen1, setIsOpen1] = useState(false);
   const [IsOpen2, setIsOpen2] = useState(false);
-
+  const path = usePathname()
+  // console.log(path)
   return (
     <div
-      className={`pl-5 bg-emerald-200 h-screen p-3 shadow-2xl relative ${show ? 'h-auto' : 'h-[65px]'} overflow-y-auto`}
+      className={`pl-5  h-screen p-3 shadow-2xl relative ${show ? 'h-auto' : 'h-[65px]'} overflow-y-auto text-white`}
     >
       <div className='flex justify-start items-center  gap-4 border-b border-black pb-3'>
         {
@@ -57,22 +56,22 @@ const Menuber = () => {
         onClick={() => setshow(!show)}
         className='absolute transition-all md:hidden block top-6 right-4 text-2xl font-bold'
       />
-      <ul className='pt-3 uppercase font-semibold flex flex-col gap-2 '>
-        <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
+      <ul className='pt-3 uppercase font-semibold flex flex-col gap-1 '>
+        <li className={`flex justify-start items-center gap-2 ${path==='/dashboard'?'bg-emerald-500':'bg-transparent'} hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md `}>
           <CgProfile className='text-xl' />
           <Link className='p-3 w-full' href={`/dashboard`}>
             profile
           </Link>
         </li>
-        <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
+        <li className={`${path==='/dashboard/admin/employee'?'bg-emerald-500':'bg-transparent'} flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md `}>
           <ImProfile className='text-xl' />
-          <Link className='p-3 w-full' href={`/dashboard/employees`}>
+          <Link className='p-3 w-full' href={`/dashboard/admin/employee`}>
             Employees
           </Link>
         </li>
-        <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
+        <li className={`flex justify-start ${path==='/dashboard/admin/departments'?'bg-emerald-500':'bg-transparent'} items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md `}>
           <FaBriefcase className='text-xl' />
-          <Link className='p-3 w-full' href={`/dashboard/departments`}>
+          <Link className='p-3 w-full' href={`/dashboard/admin/departments`}>
             Departments
           </Link>
         </li>
@@ -88,7 +87,7 @@ const Menuber = () => {
             Attendance
           </Link>
         </li>
-        
+
         <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
           <ImProfile className='text-xl' />
           <Link className='p-3 w-full' href={`/dashboard/employee`}>
@@ -111,7 +110,7 @@ const Menuber = () => {
         <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
           <BsCashCoin className='text-xl' />
           <Link className='p-3 w-full' href={`/dashboard/allloanrequest`}>
-          loan request
+            loan request
           </Link>
         </li>
 
@@ -147,15 +146,12 @@ const Menuber = () => {
             <Link href={`/dashboard/addEmployee`}>
               <li className="flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md ">
                 <p className="p-3 text-sm pl-10 w-full" >
-                 Leave Types
+                  Leave Types
                 </p>
               </li>
             </Link>
           </ul>
         }
-
-
-     
 
         <li className="flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md ">
 
@@ -191,11 +187,9 @@ const Menuber = () => {
 
       </ul>
       <div className='flex justify-start items-center  gap-4 border-t border-black pt-3 mt-6'>
-        <li className='flex justify-start items-center w-full gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
-          <IoIosHome className='text-xl' />
-          <Link className='p-3 w-full' href={`/`}>
-            home
-          </Link>
+        <li onClick={signOut} className='p-3 cursor-pointer flex justify-start items-center w-full gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
+          <RiLogoutCircleLine className='text-xl' />
+            Logout
         </li>
       </div>
     </div>

@@ -1,33 +1,36 @@
 import AddEmployeesForm from '@/Components/Dashboard/Employees/AddEmployeesForm/AddEmployeesForm';
-import ModalButton from '@/Components/Dashboard/Employees/ModalButton/ModalButton';
+import ModalButton from '@/Components/SharedComponents/dashboard/ModalButton/ModalButton';
+import DeleteButton from '@/Components/SharedComponents/DeleteButton/DeleteButton';
 import DataGet from '@/config/DataGet';
 import Image from 'next/image';
-const usePage = async () => {
+import Link from 'next/link';
+import { MdEdit } from "react-icons/md";
+const Page = async () => {
     try {
         const res = await DataGet('employe');
         const userData = res.data
         return (
             <div className="overflow-x-auto p-3 pt-6" >
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-start gap-6 items-start'>
                     <div>
-                        <h1 className='font-bold uppercase'>employees</h1>
-                        <h1 className='text-sm pt-1'>dashboard / employess</h1>
+                        <h1 className='font-bold uppercase text-white'>employees</h1>
+                        <h1 className='text-sm pt-1 text-white'>dashboard / employess</h1>
                     </div>
-                  <ModalButton />
+                    <ModalButton domId={`my_modal_add_employee`} text={'employee'} />
                     <dialog id="my_modal_add_employee" className="modal">
                         <div className="modal-box w-11/12 max-w-5xl">
                             <form method="dialog">
-                                <h1 className="font-bold text-xl text-center"> Holydays</h1>
+                                <h1 className="font-bold text-xl text-center uppercase">add new employess</h1>
                                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 bg-red-700 text-white">✕</button>
                             </form>
-                          <AddEmployeesForm />
+                            <AddEmployeesForm />
                         </div>
                     </dialog>
                 </div>
                 <table className="table mt-6">
                     {/* head */}
                     <thead>
-                        <tr>
+                        <tr className='text-white'>
                             <th className='font-bold'>profile</th>
                             <th className='font-bold'>FullName</th>
                             <th className='font-bold'>email</th>
@@ -44,9 +47,6 @@ const usePage = async () => {
                             <th className='font-bold'>action </th>
                         </tr>
                     </thead>
-                    {
-                        userData.length <= 0 && <p className='text-red-500 font-bold'>no employee data found</p>
-                    }
                     <tbody>
 
                         {
@@ -66,8 +66,11 @@ const usePage = async () => {
                                 <td>{item?.JoiningDate.split('T')[0]}</td>
                                 <td>{item?.role}</td>
                                 <td>{item?.team}</td>
-                                <td>
-                                <button>delete</button>
+                                <td className='flex justify-center items-center'>
+                                    <Link href={`employee/${item?._id}`}>
+                                        <MdEdit size={20} color='orange' />
+                                    </Link>
+                                    <DeleteButton id={item?._id} api={'employee'} />
                                 </td>
 
                             </tr>)
@@ -75,6 +78,9 @@ const usePage = async () => {
 
                     </tbody>
                 </table>
+                {
+                    userData.length <= 0 && <p className='text-red-500 font-bold'>no employee data found</p>
+                }
             </div >
         );
     } catch (error) {
@@ -85,4 +91,4 @@ const usePage = async () => {
 
 };
 
-export default usePage
+export default Page

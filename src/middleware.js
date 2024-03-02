@@ -11,12 +11,19 @@ export async function middleware(request) {
 
     const session = await getSession({ req: requestForNextAuth });
     // console.log(session)
-     if (request.nextUrl.pathname === '/' && session?.user) {
+    if (request.nextUrl.pathname === '/' && session?.user) {
         return NextResponse.redirect(new URL('/dashboard', request.url))
     }
+    //     if ( request.nextUrl.pathname==='/dashboard/admin' && session?.user?.role!=='admin') {
+    //         return NextResponse.redirect(new URL('/dashboard', request.url))
+    //     }
+    
+    //     if ( request.nextUrl.pathname.startsWith('/dashboard/admin') && session?.user?.role!=='admin') {
+    //         return NextResponse.redirect(new URL('/dashboard', request.url))
+    //     }
 
-    if (request.nextUrl.pathname.startsWith('/dashboard/addEmployee') && !session?.user?.role==='admin') {
-        return NextResponse.redirect(new URL('/dashboard', request.url))
+    if (request.nextUrl.pathname.startsWith('/dashboard') && !session?.user) {
+        return NextResponse.redirect(new URL('/', request.url))
     }
 }
 

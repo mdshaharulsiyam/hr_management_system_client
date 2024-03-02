@@ -1,4 +1,4 @@
-import ProfilePage from "@/Components/SharedComponents/dashboard/Profile/ProfilePage";
+import ProfilePage from "@/Components/Dashboard/Profile/ProfilePage";
 const useDashboardmain = async () => {
 
   try {

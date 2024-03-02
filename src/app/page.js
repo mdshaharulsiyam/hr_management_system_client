@@ -1,5 +1,5 @@
 "use client"
-import {  signIn, signOut, useSession } from "next-auth/react"
+import {  signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
@@ -19,7 +19,7 @@ const EmployeeLogin = () => {
   }
 
   return (
-    <div className="bg-[url('https://i.ibb.co/dcdPV7s/blue-curve-background-53876-113112.jpg')] bg-cover min-h-screen flex flex-col justify-center items-center border-black">
+    <div className="bg-[url('https://i.ibb.co/3rsz41m/6cbb36a34afe45944dc1280aed5f9c0c.jpg')] bg-cover min-h-screen flex flex-col justify-center items-center border-black">
       <form className="space-y-4 my-10 w-4/5 md:w-1/2 p-10 glass rounded-lg" onSubmit={handleEmployeeLogin}>
         <h1 className="text-4xl font-bold text-center">Employee Login</h1>
         <div className="form-control w-full">
