@@ -7,8 +7,9 @@ import Link from 'next/link';
 import { MdEdit } from "react-icons/md";
 const Page = async () => {
     try {
-        const res = await DataGet('employe');
-        const userData = res.data
+        const res = await DataGet('employes');
+        const userData = res.data;
+        console.log(res)
         return (
             <div className="overflow-x-auto p-3 pt-6" >
                 <div className='flex justify-start gap-6 items-start'>
@@ -35,7 +36,7 @@ const Page = async () => {
                             <th className='font-bold'>FullName</th>
                             <th className='font-bold'>email</th>
                             <th className='font-bold'>gender </th>
-                            <th className='font-bold'>departemt </th>
+                            <th className='font-bold'>Designation </th>
                             <th className='font-bold'>Address </th>
                             <th className='font-bold'>Salary </th>
                             <th className='font-bold'>PhoneNumber </th>
@@ -50,7 +51,7 @@ const Page = async () => {
                     <tbody>
 
                         {
-                            userData.length > 0 && userData.map(item => <tr key={item?._id} className="bg-base-200">
+                            userData?.length > 0 && userData.map(item => <tr key={item?._id} className="bg-base-200">
                                 <td>
                                     <Image src={item?.photo} height={30} width={30} className='w-10 h-10 rounded-full' />
                                 </td>
@@ -79,7 +80,7 @@ const Page = async () => {
                     </tbody>
                 </table>
                 {
-                    userData.length <= 0 && <p className='text-red-500 font-bold'>no employee data found</p>
+                    userData?.length <= 0 && <p className='text-red-500 font-bold'>no employee data found</p>
                 }
             </div >
         );

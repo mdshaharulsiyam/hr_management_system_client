@@ -42,7 +42,7 @@ const Page = async () => {
                     <tbody>
 
                         {
-                            DepartmentData.length > 0 && DepartmentData.map(item => <tr key={item?._id} className="bg-base-200">
+                            DepartmentData.length > 0 && DepartmentData.map(item => <tr key={item?._id} className="my-1 bg-base-200">
                                 <td>{item?.departmentName}</td>
                                 <td>
                                     <span className='flex justify-start items-center gap-1 '>

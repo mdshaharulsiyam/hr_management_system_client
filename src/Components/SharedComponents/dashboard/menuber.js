@@ -2,12 +2,11 @@
 import { RiLogoutCircleLine } from "react-icons/ri";
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { RiUserSearchFill } from 'react-icons/ri';
 import { TiThMenuOutline } from 'react-icons/ti';
 import { CgProfile } from 'react-icons/cg';
 import { ImProfile } from 'react-icons/im';
-import { IoIosHome } from 'react-icons/io';
 import { coreContext } from '@/provider/AuthContext';
 import { RiFileCopy2Fill } from 'react-icons/ri';
 import { FaPlus } from 'react-icons/fa';
@@ -15,13 +14,10 @@ import { GrFormSubtract } from "react-icons/gr";
 import { MdOutlinePeopleAlt } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import { FaBriefcase, FaPeopleGroup } from "react-icons/fa6";
-import { LiaNotesMedicalSolid } from "react-icons/lia";
-import { FaProjectDiagram } from "react-icons/fa";
-import { AiOutlineTeam } from "react-icons/ai";
+import { LiaNotesMedicalSolid } from "react-icons/lia";;
 import { BsCashCoin } from "react-icons/bs";
-import { GrSubtractCircle } from 'react-icons/gr';
-import { MdCreateNewFolder } from 'react-icons/md';
 import {  signOut } from "next-auth/react"
+import { BsMicrosoftTeams } from "react-icons/bs";
 const Menuber = () => {
   const { user } = useContext(coreContext);
   const [show, setshow] = useState(false);
@@ -64,7 +60,7 @@ const Menuber = () => {
           </Link>
         </li>
         <li className={`${path==='/dashboard/admin/employee'?'bg-emerald-500':'bg-transparent'} flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md `}>
-          <ImProfile className='text-xl' />
+          <MdOutlinePeopleAlt className='text-xl' />
           <Link className='p-3 w-full' href={`/dashboard/admin/employee`}>
             Employees
           </Link>
@@ -73,6 +69,12 @@ const Menuber = () => {
           <FaBriefcase className='text-xl' />
           <Link className='p-3 w-full' href={`/dashboard/admin/departments`}>
             Departments
+          </Link>
+        </li>
+        <li className={`flex justify-start ${path==='/dashboard/admin/teams'?'bg-emerald-500':'bg-transparent'} items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md `}>
+          <BsMicrosoftTeams className='text-xl' />
+          <Link className='p-3 w-full' href={`/dashboard/admin/teams`}>
+            teams
           </Link>
         </li>
         <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
@@ -88,12 +90,6 @@ const Menuber = () => {
           </Link>
         </li>
 
-        <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
-          <ImProfile className='text-xl' />
-          <Link className='p-3 w-full' href={`/dashboard/employee`}>
-            employees
-          </Link>
-        </li>
 
         <li className='flex justify-start items-center gap-2 hover:bg-emerald-500 hover:text-white duration-500 px-3 rounded-md '>
           <RiUserSearchFill className='text-xl' />

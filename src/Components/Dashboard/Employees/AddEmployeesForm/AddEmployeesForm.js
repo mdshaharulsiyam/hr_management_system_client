@@ -1,10 +1,12 @@
 "use client";
 import DataPost from "@/config/DataPost";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Swal from 'sweetalert2';
 
 const AddEmployeesForm = () => {
+    const router=useRouter()
     const [loading, setloading] = useState(false);
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=5201d474546c521dc75dd9c96eea7a84`;
     const HandelSubmit = async (e) => {
@@ -19,7 +21,7 @@ const AddEmployeesForm = () => {
         const PhoneNumber = form.PhoneNumber.value;
         const photo = form.photo.files[0];
         const role = form.role.value;
-        const Designation = form.Department.value;
+        const Designation = form.Designation.value;
         const Gender = form.Gender.value;
         const Salary = form.salary.value;
 
@@ -51,6 +53,7 @@ const AddEmployeesForm = () => {
         if (res.data.data.display_url) {
             const responce = await DataPost('employe', info)
             if (responce?.success) {
+                router.refresh()
                 e.target.reset()
                 setloading(false);
                 Swal.fire({
@@ -133,15 +136,14 @@ const AddEmployeesForm = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-6" >
                     <div>
-                        <label class="block  text-sm font-medium text-gray-900 ">  Department :</label>
-                        <select required name="Department" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 ">
-                            <option value={''} selected>Choose one</option>
-                            <option value={'Accounts'} >Accounts</option>
-                            <option value={'Marketing'} >Marketing</option>
-                            <option value={'Support'} >Support</option>
-                            <option value={'development'} >development</option>
-                            <option value={'graphics'}  >graphics</option>
-                        </select>
+                        <label class="block  text-sm font-medium text-gray-900 ">  Designation :</label>
+                        <input
+                            type="text"
+                            name="Designation"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                            placeholder="Designation"
+                            required
+                        />
                     </div>
                     <div>
                         <label className="block  text-sm font-medium text-gray-900 "> Gender:</label>
@@ -166,22 +168,17 @@ const AddEmployeesForm = () => {
                             placeholder="Phone Number "
                             required
                         />
+
                     </div>
                     <div>
                         <label class="block  text-sm font-medium text-gray-900 "> salary :</label>
-                        <select required name="salary" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 ">
-                            <option value={''} selected>Choose one</option>
-                            <option value={'10000'}>10000</option>
-                            <option value={'15000'}>15000</option>
-                            <option value={'20000'}>20000</option>
-                            <option value={'25000'}>25000</option>
-                            <option value={'30000'}>30000</option>
-                            <option value={'35000'}>35000</option>
-                            <option value={'45000'}>45000</option>
-                            <option value={'60000'}>60000</option>
-                            <option value={'80000'}>80000</option>
-                            <option value={'100000'}>100000</option>
-                        </select>
+                        <input
+                            type="number"
+                            name="salary"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                            placeholder="salary "
+                            required
+                        />
                     </div>
                 </div>
 
